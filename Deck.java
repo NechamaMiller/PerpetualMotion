@@ -6,13 +6,16 @@ import java.util.Random;
 public class Deck
 {
 	private ArrayList<Card> cards;
+	private int numCards;
 	private final int STARTING_NUM_CARDS = 52;
 	
 	public Deck()
-	{		
-		cards = new ArrayList<Card>(STARTING_NUM_CARDS);
+	{
+		numCards = STARTING_NUM_CARDS;
 		
-		for (int i=0; i<cards.size(); i++)
+		cards = new ArrayList<Card>(numCards);
+		
+		for (int i=0; i<numCards; i++)
 		{
 			Rank rank;
 			Suit suit;
@@ -47,11 +50,11 @@ public class Deck
 	
 	public void shuffle()
 	{
-		Random rand = new Random(System.currentTimeMillis());
+		Random rand = new Random();
 		
-		for (int i=0; i<cards.size(); i++)
+		for (int i=0; i<numCards; i++)
 		{
-			int swapIndex = rand.nextInt(cards.size());
+			int swapIndex = rand.nextInt(numCards);
 			Card cardToSwap = cards.get(swapIndex);
 			
 			cards.set(swapIndex, cards.get(i));
@@ -67,7 +70,7 @@ public class Deck
 	{
 		if (!isEmpty())
 		{
-			return cards.remove(cards.size()-1);
+			return cards.remove(--numCards);
 		}
 		else
 		{
@@ -82,12 +85,12 @@ public class Deck
 	
 	public int getRemainingCards()
 	{
-		return cards.size();
+		return numCards;
 	}
 	
 	public String toString()
 	{
-		if (cards.size() == 0)
+		if (numCards == 0)
 		{
 			return "Deck is empty.";
 		}
